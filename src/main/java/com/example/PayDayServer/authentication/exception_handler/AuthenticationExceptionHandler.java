@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class AuthenticationExceptionHandler {
     @ExceptionHandler({PasswordMismatchException.class, UserExistsException.class, BadPasswordException.class, UserExistsException.class})
     private ResponseEntity<?> passwordMismatchExceptionHandler(Exception exception) {
-           return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
 

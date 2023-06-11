@@ -31,6 +31,5 @@ public class AuthenticationController {
         
         var response = authenticationService.authenticate(loginRequest);
         return new ResponseEntity<>(response, HttpStatus.OK);
-        
     }
 }

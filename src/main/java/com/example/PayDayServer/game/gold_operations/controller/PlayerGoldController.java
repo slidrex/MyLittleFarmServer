@@ -18,14 +18,9 @@ public class PlayerGoldController {
     @Autowired
     private PlayerGoldService playerGoldService;
     @PostMapping("/get_player_gold_per_second")
-    private ResponseEntity<?> getPlayerGoldPerSecond(@RequestBody PlayerGPSRequest request) {
-        try
-        {
-            var response = playerGoldService.getPlayerGoldPerSecond(request);
-            return new ResponseEntity<>(response, HttpStatus.OK);
-        }
-        catch (BuildingReachedMaxLevelException maxLevelException){ return new ResponseEntity<>(maxLevelException.getMessage(), HttpStatus.BAD_REQUEST);}
-        catch (NoSuchBuildingException exception) { return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);}
-        catch (UnknownUser exception) {return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);}
+    private ResponseEntity<?> getPlayerGoldPerSecond(@RequestBody PlayerGPSRequest request) throws UnknownUser, NoSuchBuildingException, BuildingReachedMaxLevelException {
+        var response = playerGoldService.getPlayerGoldPerSecond(request);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+        
     }
 }
