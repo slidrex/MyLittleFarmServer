@@ -2,6 +2,7 @@ package com.example.PayDayServer.game.building.service;
 
 import com.example.PayDayServer.game.building.entity.entities.BuildingEntity;
 import com.example.PayDayServer.game.building.exception.NoSuchBuildingException;
+import com.example.PayDayServer.game.building.exception.level.BuildingReachedMaxLevelException;
 import com.example.PayDayServer.game.building.model.construct.BuildRequest;
 import com.example.PayDayServer.game.building.model.construct.BuildResponse;
 import com.example.PayDayServer.game.building.model.deconstruct.DeconstructRequest;
@@ -25,14 +26,18 @@ public class BuildingService {
     private BuildingRepository constructedBuildingsRepository;
     @Autowired
     private PlotRepository plotRepository;
+    
     public BuildResponse build(BuildRequest buildRequest) throws NoSuchPlotException {
-        var plot = plotRepository.findById(buildRequest.getPlotId());
-        if(plot.isEmpty()) throw new NoSuchPlotException("No such plot");
+        var plot = plotRepository.findById(buildRequest.getPlotId()).orElseThrow(() -> new NoSuchPlotException("No such plot"));
+        
+        
         var building = new BuildingEntity();
         building.setBuildingLevel(1);
+        
         building.setPositionX(buildRequest.getPositionX());
         building.setPositionY(buildRequest.getPositionY());
-
+        building.setPlot(plot);
+        
         constructedBuildingsRepository.save(building);
         var response = new BuildResponse();
         response.setPositionX(0);
@@ -51,13 +56,18 @@ public class BuildingService {
         }
             
     }
-    public LevelUpResponse upgradeBuilding(LevelUpRequest request) throws NoSuchBuildingException {
+    public LevelUpResponse upgradeBuilding(LevelUpRequest request) throws NoSuchBuildingException, BuildingReachedMaxLevelException {
         var building = constructedBuildingsRepository.findById(request.getBuildingId());
         if(building.isEmpty()) throw new NoSuchBuildingException("No building with specified id!");
         else 
         {
             var building_obj = building.get();
             int newLevel = building_obj.getBuildingLevel() + 1;
+            
+            var buildingTemplate = buildingRepository.getByBuildingId(building_obj.getBuildingId()).orElseThrow(() -> new NoSuchBuildingException("Building template doesn't exist!"));
+            if(buildingTemplate.getBuildingLevels().size() <= newLevel - 1) throw new BuildingReachedMaxLevelException();
+            
+            
             building_obj.setBuildingLevel(newLevel);
             constructedBuildingsRepository.save(building_obj);
             var resp = new LevelUpResponse(building_obj.getBuildingId(), newLevel);

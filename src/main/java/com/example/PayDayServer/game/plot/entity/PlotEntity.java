@@ -58,6 +58,15 @@ public class PlotEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity user;
+
+    public List<BuildingEntity> getBuildings() {
+        return buildings;
+    }
+
+    public void setBuildings(List<BuildingEntity> buildings) {
+        this.buildings = buildings;
+    }
+
     @OneToMany(mappedBy = "plot", cascade = CascadeType.ALL)
     private List<BuildingEntity> buildings;
 }

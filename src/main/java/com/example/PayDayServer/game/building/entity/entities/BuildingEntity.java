@@ -23,8 +23,17 @@ public class BuildingEntity {
     private int buildingId;
     @Column(name = "building_level")
     private int buildingLevel;
+
+    public PlotEntity getPlot() {
+        return plot;
+    }
+
+    public void setPlot(PlotEntity plot) {
+        this.plot = plot;
+    }
+
     @ManyToOne
-    @JoinColumn(name = "build_id")
+    @JoinColumn(name = "plot_id")
     private PlotEntity plot;
 
     public int getPositionX() {

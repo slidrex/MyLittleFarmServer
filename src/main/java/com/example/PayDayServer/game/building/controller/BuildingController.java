@@ -1,6 +1,7 @@
 package com.example.PayDayServer.game.building.controller;
 
 import com.example.PayDayServer.game.building.exception.NoSuchBuildingException;
+import com.example.PayDayServer.game.building.exception.level.BuildingReachedMaxLevelException;
 import com.example.PayDayServer.game.building.model.construct.BuildRequest;
 import com.example.PayDayServer.game.building.model.deconstruct.DeconstructRequest;
 import com.example.PayDayServer.game.building.model.levelup.LevelUpRequest;
@@ -48,6 +49,7 @@ public class BuildingController {
             var response = buildingService.upgradeBuilding(request);
             return new ResponseEntity<>(response, HttpStatus.OK);
         }
+        catch (BuildingReachedMaxLevelException maxLevelException) {return new ResponseEntity<>(maxLevelException.getMessage(), HttpStatus.BAD_REQUEST);}
         catch (NoSuchBuildingException exception) {return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);}
     }
 }

@@ -12,7 +12,7 @@ public class BuildingTemplateEntity {
     @Id
     private String id;
     @Field("building_id")
-    private Long buildingId;
+    private Integer buildingId;
     @Field("name")
     private String buildingName;
     @Field("levels")
@@ -26,11 +26,11 @@ public class BuildingTemplateEntity {
         this.id = id;
     }
 
-    public Long getBuildingId() {
+    public Integer getBuildingId() {
         return buildingId;
     }
 
-    public void setBuildingId(Long buildingId) {
+    public void setBuildingId(Integer buildingId) {
         this.buildingId = buildingId;
     }
 
