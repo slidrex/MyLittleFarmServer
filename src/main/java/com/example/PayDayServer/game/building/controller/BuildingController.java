@@ -22,34 +22,23 @@ import org.springframework.web.bind.annotation.*;
 public class BuildingController {
     @Autowired
     private BuildingService buildingService;
-    @PostMapping("/build")
-    private ResponseEntity<?> createBuilding(BuildRequest request) {
-        try {
-            var response = buildingService.build(request);
-            return new ResponseEntity<>(response, HttpStatus.OK);    
-        }
-        catch (NoSuchPlotException exception) {return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);}
-        
-    }
-    @DeleteMapping("/deconstruct")
-    private ResponseEntity<?> deconstructBuilding(DeconstructRequest request) {
-        try
-        {
-            var response = buildingService.destroyBuilding(request);
-            return new ResponseEntity<>(response, HttpStatus.OK);
-        }
-        catch (NoSuchBuildingException exception) {
-            return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
-        }
-    }
-    @PatchMapping("/level_up")
-    private ResponseEntity<?> levelUpBuilding(LevelUpRequest request) {
-        try {
 
-            var response = buildingService.upgradeBuilding(request);
-            return new ResponseEntity<>(response, HttpStatus.OK);
-        }
-        catch (BuildingReachedMaxLevelException maxLevelException) {return new ResponseEntity<>(maxLevelException.getMessage(), HttpStatus.BAD_REQUEST);}
-        catch (NoSuchBuildingException exception) {return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);}
+    @PostMapping("/build")
+    private ResponseEntity<?> createBuilding(BuildRequest request) throws NoSuchPlotException {
+        var response = buildingService.build(request);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/deconstruct")
+    private ResponseEntity<?> deconstructBuilding(DeconstructRequest request) throws NoSuchBuildingException {
+        var response = buildingService.destroyBuilding(request);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PatchMapping("/level_up")
+    private ResponseEntity<?> levelUpBuilding(LevelUpRequest request) throws NoSuchBuildingException, BuildingReachedMaxLevelException {
+        var response = buildingService.upgradeBuilding(request);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+
     }
 }
