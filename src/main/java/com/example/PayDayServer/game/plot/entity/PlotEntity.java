@@ -2,8 +2,11 @@ package com.example.PayDayServer.game.plot.entity;
 
 import com.example.PayDayServer.authentication.entity.UserEntity;
 import com.example.PayDayServer.game.building.entity.entities.BuildingEntity;
+import com.example.PayDayServer.game.building.model.BuildingModel;
+import com.example.PayDayServer.game.plot.model.PlotModel;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -14,7 +17,20 @@ public class PlotEntity {
         this.sizeY = sizeY;
         this.user = user;
     }
-
+    public static PlotModel getModel(PlotEntity entity){
+        var buildings = entity.getBuildings();
+        
+        List<BuildingModel> buildingsModels = new ArrayList<BuildingModel>();
+        for (var building :
+              buildings) {
+            var model = new BuildingModel(building.getId(), building.getPositionX(), building.getPositionY(), building.getBuildingLevel(), building.getBuildingId());
+            buildingsModels.add(model);
+            
+        }
+        var model = new PlotModel(entity.getSizeX(), entity.getSizeY(), entity.getId(), entity.getUser(), buildingsModels);
+        
+        return model;
+    }
     public PlotEntity() {
     }
 

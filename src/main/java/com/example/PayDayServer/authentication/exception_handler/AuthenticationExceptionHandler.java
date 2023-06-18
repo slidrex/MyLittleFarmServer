@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
 public class AuthenticationExceptionHandler {
-    @ExceptionHandler({PasswordMismatchException.class, UserExistsException.class, BadPasswordException.class, UserExistsException.class})
+    @ExceptionHandler({PasswordMismatchException.class, UserExistsException.class, BadPasswordException.class, UnknownUser.class})
     private ResponseEntity<?> passwordMismatchExceptionHandler(Exception exception) {
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
     }

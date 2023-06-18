@@ -25,16 +25,16 @@ public class BuildResponse {
         this.plotID = plotID;
     }
 
-    public Long getBuildingID() {
+    public int getBuildingID() {
         return buildingID;
     }
 
-    public void setBuildingID(Long buildingID) {
+    public void setBuildingID(int buildingID) {
         this.buildingID = buildingID;
     }
 
     private int positionX;
     private int positionY;
     private Long plotID;
-    private Long buildingID;
+    private int buildingID;
 }

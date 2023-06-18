@@ -6,11 +6,25 @@ public class BuildingModel {
     private int level;
     private int buildingTempalteId;
 
-    public BuildingModel(int positionX, int positionY, int level, int buildingTempalteId) {
+    public long getBuildingId() {
+        return buildingId;
+    }
+
+    public void setBuildingId(long buildingId) {
+        this.buildingId = buildingId;
+    }
+
+    private long buildingId;
+
+    public BuildingModel(long buildingId, int positionX, int positionY, int level, int buildingTempalteId) {
         this.positionX = positionX;
+        this.buildingId = buildingId;
         this.positionY = positionY;
         this.level = level;
         this.buildingTempalteId = buildingTempalteId;
+    }
+
+    public BuildingModel() {
     }
 
     public int getPositionX() {

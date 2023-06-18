@@ -1,17 +1,17 @@
 package com.example.PayDayServer.authentication.model.register;
 
 public class RegisterResponse {
-    private String login;
-
-    public RegisterResponse(String login) {
-        this.login = login;
+    public RegisterResponse(String status) {
+        this.status = status;
     }
 
-    public String getLogin() {
-        return login;
+    private String status;
+
+    public String getStatus() {
+        return status;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

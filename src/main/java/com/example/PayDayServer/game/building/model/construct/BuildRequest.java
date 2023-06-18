@@ -1,6 +1,11 @@
 package com.example.PayDayServer.game.building.model.construct;
 
 public class BuildRequest {
+    private Long plotId;
+    private int positionX;
+    private int positionY;
+    private int buildingID;
+
     public Long getPlotId() {
         return plotId;
     }
@@ -25,16 +30,11 @@ public class BuildRequest {
         this.positionY = positionY;
     }
 
-    public Long getBuildingID() {
+    public int getBuildingID() {
         return buildingID;
     }
 
-    public void setBuildingID(Long buildingID) {
+    public void setBuildingID(int buildingID) {
         this.buildingID = buildingID;
     }
-
-    private Long plotId;
-    private int positionX;
-    private int positionY;
-    private Long buildingID;
 }
